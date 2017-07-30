@@ -97,7 +97,6 @@ public class NodeExecutor {
             spawnChild(graph, node, childAddress);
         }
 
-
         spawnChildren(graph, node);
         spawnExceptionChildren(graph, node, exceptionResolver);
 

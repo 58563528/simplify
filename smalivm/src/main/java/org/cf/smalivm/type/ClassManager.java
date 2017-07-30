@@ -28,7 +28,7 @@ public class ClassManager {
     private static final Logger log = LoggerFactory.getLogger(ClassManager.class.getSimpleName());
 
     private final HashMap<String, VirtualClass> classNameToClass;
-    private final Map<String, SmaliFile> classNameToSmaliFile;
+    public final Map<String, SmaliFile> classNameToSmaliFile;
 
     private final SmaliFileFactory smaliFileFactory;
     private final DexBuilder dexBuilder;
@@ -153,6 +153,9 @@ public class ClassManager {
 
     private void cacheSmaliFiles(Set<SmaliFile> smaliFiles) {
         for (SmaliFile smaliFile : smaliFiles) {
+            if (!smaliFile.getPath().startsWith("framework/")) {
+                System.out.println("Caching smali file: " + smaliFile.getPath());
+            }
             classNameToSmaliFile.put(smaliFile.getClassName(), smaliFile);
         }
     }
@@ -172,6 +175,7 @@ public class ClassManager {
     }
 
     private void parseClassIfNecessary(String className) {
+        System.out.println("Parsing class if necessary: " + className);
         if (classNameToClass.containsKey(className)) {
             return;
         }

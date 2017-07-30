@@ -3,12 +3,15 @@ package org.cf.smalivm;
 import org.cf.smalivm.context.ExecutionGraph;
 import org.cf.smalivm.context.HeapItem;
 import org.cf.smalivm.context.MethodState;
+import org.cf.smalivm.dex.SmaliFile;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+
+import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
@@ -71,6 +74,11 @@ public class TestMethodInheritence {
 
         @Test
         public void executingAbstractMethodReturnsNull() throws VirtualMachineException {
+            System.out.println("Class manager classes: " + vm.getClassManager().getClassNames());
+            SmaliFile sf = vm.getClassManager().classNameToSmaliFile.get(CLASS_NAME);
+            System.out.println("Class path: " + sf.getPath());
+            File f = new File(sf.getPath());
+            System.out.println("Does this shit exist: " + f.exists());
             String methodName = "abstractMethod()Ljava/lang/String;";
             exception.expect(IllegalArgumentException.class);
             vm.execute(CLASS_NAME + "->" + methodName);

@@ -62,7 +62,9 @@ public class SmaliFileFactory {
         Set<SmaliFile> smaliFiles = getSmaliFiles();
         for (File file : files) {
             List<File> matches = Utils.getFilesWithSmaliExtension(file);
+            System.out.println("Getting matches from: " + file);
             for (File match : matches) {
+                System.out.println("File match: " + match);
                 SmaliFile smaliFile = new SmaliFile(match);
                 // DalvikVM rejects classes in an APK that are already defined.
                 // Framework classes take precedence over local classes.
